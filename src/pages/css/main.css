@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, sans-serif;
+}
+
+:root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    max-width: none;
+
+    --primary-color: #006434;
+    --secondary-color: #eba713;
+    --light-color: #fff;
+    --light-secondary-color: #E7ECEF;
+    --dark-color: #272932;
+    --dark-color-20: #27293220;
+    --dark-color-40: #27293240;
+}

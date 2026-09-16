@@ -1,0 +1,39 @@
+.shortcut-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .2rem;
+    min-width: fit-content;
+    min-height: fit-content;
+    /* padding: .6rem;
+    aspect-ratio: 1; */
+    margin: 0;
+    padding: 0;
+
+    /* border: 2px outset #D8E4E9 #C0CBCD #A7C7CB #DBE1E3; */
+    background-color: var(--light-color);
+    border-radius: 1rem;
+    box-shadow: 0px 3px 3px 0px var(--dark-color-20);
+    color: var(--dark-color);
+
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.shortcut-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 10px 0px var(--dark-color-40);
+}
+
+.shortcut-button span {
+    color: var(--dark-color);
+    font-size: medium;
+}
+
+
+.shortcut-button .shortcut-icon {
+    max-height: 112px;
+    height: auto;
+    object-fit: contain;
+}
