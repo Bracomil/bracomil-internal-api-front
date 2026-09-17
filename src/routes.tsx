@@ -1,9 +1,9 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-// import { AuthProvider } from './context/AuthContext'; // Seu provedor de autenticação
+import { createBrowserRouter } from 'react-router-dom';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import App from './pages/Login'; // Página de Login
 import NotFound from "./pages/NotFound"; // Página para rotas não encontradas
-import Home from './pages/Home';
+import Apps from './pages/Apps';
+import { UploadPage } from './pages/BankReturns/BankReturns'
 import { Layout } from './components/Layout';
 
 export const router = createBrowserRouter([
@@ -23,7 +23,14 @@ export const router = createBrowserRouter([
                 path: '/',
                 element: <Layout />, // Rota protegida
                 children: [
-                    { index: true, element: <Home /> }
+                    { index: true, element: <Apps /> }
+                ]
+            },
+            {
+                path: '/apps/bank/returns',
+                element: <Layout />, // Rota protegida
+                children: [
+                    { index: true, element: <UploadPage /> }
                 ]
             },
             // Adicione outras rotas protegidas aqui no futuro

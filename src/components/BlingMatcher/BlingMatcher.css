@@ -1,0 +1,129 @@
+.bling-matcher {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.bling-matcher header h2 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.bling-matcher header p {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.bling-matcher h3 {
+    font-size: 1rem;
+    color: var(--dark-color);
+    margin-bottom: 0.75rem;
+}
+
+.bling-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.bling-table th,
+.bling-table td {
+    padding: 0.7rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+}
+
+.bling-table th {
+    background: var(--light-secondary-color);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.row-warning {
+    background: #fff8e6;
+}
+
+.sem-match h3 {
+    color: #a12d2a;
+}
+
+.bling-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.bling-actions button {
+    padding: 0.65rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--dark-color);
+    border: 1px solid #ccc !important;
+}
+
+.btn-secondary:hover {
+    background: #f0f0f0;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #03512b;
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Linha de conta já baixada */
+.row-baixada {
+    opacity: 0.7;
+    background: #f7f7f7;
+}
+
+.row-baixada td {
+    color: #777;
+}
+
+/* Badge de situação */
+.badge.situacao {
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+}
+
+.badge.situacao.aberta {
+    background: #eef2ff;
+    color: #3a3f8a;
+}
+
+.badge.situacao.baixada {
+    background: #e6f4ea;
+    color: #1e6b3a;
+}
+
+.dash {
+    color: #ccc;
+    font-size: 0.9rem;
+}

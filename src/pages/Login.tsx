@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEvent } from 'react'
+import { useState, type ChangeEvent } from 'react'
 import './css/main.css'
 import './css/Login.css'
 import logo from "../assets/logo-bracomil-horizontal.png"

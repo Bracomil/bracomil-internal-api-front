@@ -1,39 +1,98 @@
 .shortcut-button {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: .2rem;
-    min-width: fit-content;
-    min-height: fit-content;
-    /* padding: .6rem;
-    aspect-ratio: 1; */
-    margin: 0;
-    padding: 0;
 
-    /* border: 2px outset #D8E4E9 #C0CBCD #A7C7CB #DBE1E3; */
+    width: 100%;
+    min-width: 0;
+    aspect-ratio: 1;
+
+    padding-bottom: 1.8rem;
+
+    border: 1px solid;
+    border-color: rgba(216, 228, 233, 0.4) rgba(192, 203, 205, 0.4) rgba(167, 199, 203, 0.4) rgba(219, 225, 227, 0.4);
     background-color: var(--light-color);
-    border-radius: 1rem;
+    border-radius: .6rem;
     box-shadow: 0px 3px 3px 0px var(--dark-color-20);
     color: var(--dark-color);
-
+    transition: 0.2s;
     text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .shortcut-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 8px 10px 0px var(--dark-color-40);
+    transform: scale(105%);
+    box-shadow: 0px 8px 8px 0px var(--dark-color-40);
 }
 
 .shortcut-button span {
+    position: absolute;
+    bottom: 0;
+
+    font-size: xx-large;
+    padding: .2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     color: var(--dark-color);
-    font-size: medium;
+    width: 100%;
+    border-radius: 0 0 .6rem .6rem;
+    min-height: 2rem;
+    background: linear-gradient(to top, var(--light-color) 85%, rgba(0, 123, 255, 0) 100%);
 }
 
+.shortcut-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: .6rem;
+    display: block;
+}
 
-.shortcut-button .shortcut-icon {
-    max-height: 112px;
-    height: auto;
-    object-fit: contain;
+/* 1920px */
+@media (max-width: 120rem) {
+    .shortcut-button span {
+        font-size: x-large;
+    }
+}
+
+/* 1440px */
+@media (max-width: 83.9rem) {
+
+    .shortcut-button span {
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: larger;
+    }
+}
+
+/* 1126.4px */
+@media (max-width: 70.4rem) {
+
+    .shortcut-button span {
+        font-size: large;
+    }
+}
+
+/* 3 colunas */
+@media (max-width: 56.9rem) {
+    .shortcut-button span {
+        font-size: medium;
+    }
+}
+
+@media (max-width: 43.4rem) {
+
+    .shortcut-button span {
+        font-size: small;
+    }
+}
+
+@media (max-width: 29.9rem) {
+    .shortcut-button span {
+        font-size: smaller;
+    }
 }
