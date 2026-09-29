@@ -1,17 +1,34 @@
+import type { GoogleCredentialResponse } from '@react-oauth/google';
 import { createContext, useContext, useState, type ReactNode } from 'react';
+import { fetchWithInterceptors } from '../api/client';
+import { type Permission } from "../types/permissions"
+
+console.log('🔍 AuthContext.tsx carregou');
 
 // 1. Tipos: o que é um usuário e o que o contexto oferece
 interface User {
     id: number;
-    name: string;
     email: string;
+    name: string;
+    active: boolean;
+    picture?: string;
+    permissions: Permission[]
+    jwt: string;
+    expiresAt: Date;
+}
+
+interface LoginResponse {
+    access_token: string;
+    permissions: Permission[]
+    expires_in: number;
+    user: User;
 }
 
 interface AuthContextType {
-    user: User | null;
+    user: User | null | undefined;
     isAuthenticated: boolean;
     isLoading: boolean;
-    login: (email: string, password: string) => Promise<void>;
+    login: (credentials: GoogleCredentialResponse) => Promise<void>;
     logout: () => void;
 }
 
@@ -20,29 +37,51 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // 3. O Provedor (Provider) que vai envolver o app
 export function AuthProvider({ children }: { children: ReactNode }) {
-    const [user, setUser] = useState<User | null>({
-        id: 1,
-        name: 'Admin Teste',
-        email: 'admin@teste.com',
-    });
+    const [user, setUser] = useState<User | null>(() => {
+        const stored = localStorage.getItem('auth_user');
+        if (!stored) return null;
+        try {
+            var user = JSON.parse(stored) as User;
+            if (user.expiresAt < new Date()) {
+                throw "token expirado. Faça login novamente"
+            }
+            return user
+        } catch {
+            // se o JSON estiver corrompido, limpa e começa do zero
+            localStorage.removeItem('auth_user');
+            return null;
+        }
+    })
     const [isLoading, setIsLoading] = useState(false); // Usaremos depois para checar token
 
     // Função de Login: simula uma chamada de API
-    async function login(email: string, password: string) {
+    async function login(credentials: GoogleCredentialResponse) {
         setIsLoading(true);
-        // Simulando delay de rede
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-
-        // Aqui você faria a chamada real: fetch('/api/login', ...)
-        if (email === 'admin@teste.com' && password === '123456') {
-            const fakeUser = { id: 1, name: 'Admin', email };
-            setUser(fakeUser);
-            // Dica: salvar no localStorage para persistir a sessão
-            localStorage.setItem('auth_user', JSON.stringify(fakeUser));
-        } else {
+        var data: LoginResponse;
+        try {
+            const res = await fetchWithInterceptors('http://localhost:3000/oauth/google', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ credential: credentials.credential }),
+            });
+            data = await res.json();
+        } catch (e) {
             setIsLoading(false);
-            throw new Error('Credenciais inválidas');
+            return
         }
+        // Set values for users
+        var user = data.user;
+        // Set permissions and access token
+        user.permissions = data.permissions;
+        user.jwt = data.access_token;
+        // Set expires at of token
+        var expiresAt = new Date()
+        expiresAt.setSeconds(expiresAt.getSeconds() + data.expires_in)
+        user.expiresAt = expiresAt
+        // Set user
+        setUser(user)
+        localStorage.setItem('auth_user', JSON.stringify(user))
+        localStorage.setItem('auth_token', data.access_token)
         setIsLoading(false);
     }
 

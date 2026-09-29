@@ -1,39 +1,55 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import App from './pages/Login'; // Página de Login
+import { PublicRoute } from './components/PublicRoute';
+import Login from './pages/Login/Login'; // Página de Login
 import NotFound from "./pages/NotFound"; // Página para rotas não encontradas
-import Apps from './pages/Apps';
+import Apps from './pages/Apps/Apps';
 import { UploadPage } from './pages/BankReturns/BankReturns'
 import { Layout } from './components/Layout';
+import { PERMISSIONS } from './types/permissions';
+import { PermissionRoute } from "./components/PermissionRoute"
+import LoadingPage from './pages/Loading/Loading';
+// { path: '/loading', element: <LoadingPage /> }
 
 export const router = createBrowserRouter([
-    {
-        path: '/login',
-        element: <App />, // Rota pública
-    },
-    {
-        path: "*", // Captura qualquer rota que não exista (404)
-        element: <NotFound />,
-    },
     {
         // Agrupa todas as rotas que precisam de proteção
         element: <ProtectedRoute />,
         children: [
             {
-                path: '/',
                 element: <Layout />, // Rota protegida
                 children: [
-                    { index: true, element: <Apps /> }
+                    {
+                        path: '/',
+                        element: <Apps />
+                    },
+                    {
+                        element: (
+                            <PermissionRoute
+                                permissions={[
+                                    PERMISSIONS.BANK_RETURNS_READ,
+                                    PERMISSIONS.BANK_RETURNS_SETTLE,
+                                ]}
+                                mode='any'
+                            />
+                        ),
+                        children: [
+                            { path: "/apps/bank/returns", element: <UploadPage /> }
+                        ]
+                    }
                 ]
             },
-            {
-                path: '/apps/bank/returns',
-                element: <Layout />, // Rota protegida
-                children: [
-                    { index: true, element: <UploadPage /> }
-                ]
-            },
-            // Adicione outras rotas protegidas aqui no futuro
         ],
+    },
+    {
+        element: <PublicRoute />,              // 👈 envolve
+        children: [
+            { path: '/login', element: <Login /> },
+            { path: '/loading', element: <LoadingPage /> }
+        ],
+    },
+    {
+        path: "*", // Captura qualquer rota que não exista (404)
+        element: <NotFound />,
     },
 ]);

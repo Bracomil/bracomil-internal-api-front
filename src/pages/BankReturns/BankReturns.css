@@ -7,21 +7,6 @@
     color: #555;
 }
 
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid #ddd;
-    border-top-color: var(--primary-color);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 .upload-error {
     display: flex;
     flex-direction: column;
@@ -35,6 +20,7 @@
 
 .upload-error h2 {
     font-size: 1.1rem;
+    color: inherit;
 }
 
 .bling-error-banner {

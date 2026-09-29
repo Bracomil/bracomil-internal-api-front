@@ -1,0 +1,74 @@
+import { useState, type ChangeEvent } from 'react'
+// import './main.css'
+import './Login.css'
+import logo from "../../assets/logo-bracomil-horizontal.png"
+import { useAuth } from "../../context/AuthContext"
+import { useNavigate, useLocation } from 'react-router-dom';
+import { GoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
+
+// const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+// const STRONG_PWD_REGEX = /^/
+// const STRONG_PWD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/
+
+function Login() {
+  // const [email, setEmail] = useState<string>('')
+  // const [password, setPassword] = useState<string>('')
+  const [message, setMessage] = useState<string>('')
+
+  const { login } = useAuth(); // 👈 pega as funções do contexto
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+
+  // async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+  //   e.preventDefault()
+  //   if (email == "" || password == "") {
+  //     setMessage("⚠️ Preencha todos os campos")
+  //     return
+  //   }
+  //   if (!EMAIL_REGEX.test(email)) {
+  //     setMessage("⚠️ Coloque um e-mail válido")
+  //     return
+  //   }
+  //   if (!STRONG_PWD_REGEX.test(password)) {
+  //     setMessage('⚠️ Senha deve conter pelo menos:\n Uma letra minúscula\nUma letra maíscula\nUm número\nUm caractér especial (*&@#)\nPelo menos 8 caracteres')
+  //     return
+  //   }
+  //   setMessage("")
+  //   try {
+  // await login(email, password);   // 👈 chama a função do AuthContext
+  //     navigate(from, { replace: true }); // 👈 redireciona após sucesso
+  //   } catch (err) {
+  //     setMessage('❌ E-mail ou senha inválidos');
+  //   }
+  // }
+
+  return (
+    <div className="container">
+      <div className='left'>
+      </div>
+      <div className='right'>
+        <div className="header">
+          <img src={logo} id='logo' alt="company logo"></img>
+          <h1>Acessar plataforma</h1>
+        </div>
+        <div className="form">
+          <GoogleLogin theme='filled_blue' shape="rectangular" size="large"
+            onSuccess={async (credentialResponse) => {
+              try {
+                await login(credentialResponse)
+                navigate(from, { replace: true }); // 👈 redireciona após sucesso
+              } catch (e) {
+                setMessage('❌ Erro ao tentar efetuar login');
+              }
+            }}
+            onError={() => console.log('Falha no login')}
+          />
+          <p className="mensagem">{message}</p>
+        </div>
+      </div>
+    </div >
+  )
+}
+
+export default Login

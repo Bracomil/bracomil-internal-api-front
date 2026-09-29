@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+
 * {
     margin: 0;
     padding: 0;
+}
+
+*,
+*::before,
+*::after {
     box-sizing: border-box;
-    font-family: system-ui, sans-serif;
 }
 
 :root {
@@ -13,7 +20,8 @@
 
     --primary-color: #006434;
     --secondary-color: #eba713;
-    --light-color: #fff;
+    --light-color: rgb(255, 255, 255);
+    --light-color-numbers: 255, 255, 255;
     --light-secondary-color: #E7ECEF;
     --dark-color: #272932;
     --dark-color-20: #27293220;

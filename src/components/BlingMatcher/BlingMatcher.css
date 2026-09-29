@@ -4,6 +4,7 @@
     gap: 2rem;
 }
 
+
 .bling-matcher header h2 {
     color: var(--primary-color);
     margin-bottom: 0.5rem;
@@ -96,7 +97,6 @@
 
 /* Linha de conta já baixada */
 .row-baixada {
-    opacity: 0.7;
     background: #f7f7f7;
 }
 
@@ -111,14 +111,16 @@
     font-size: 0.7rem;
     padding: 0.2rem 0.55rem;
     border-radius: 999px;
+    background: #ebeff2;
+    color: #003759;
 }
 
 .badge.situacao.aberta {
-    background: #eef2ff;
-    color: #3a3f8a;
+    background: #fff8e6;
+    color: #8a6300;
 }
 
-.badge.situacao.baixada {
+.badge.situacao.recebida {
     background: #e6f4ea;
     color: #1e6b3a;
 }
@@ -126,4 +128,99 @@
 .dash {
     color: #ccc;
     font-size: 0.9rem;
+}
+
+.section-hint {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Destaque de liquidação parcial */
+.row-parcial {
+    background: #fff8e6;
+}
+
+.row-parcial td:first-child {
+    border-left: 3px solid var(--secondary-color, #eba713);
+}
+
+.badge.ocorrencia.parcial {
+    background: #fff1c9;
+    color: #8a6300;
+}
+
+/* Detalhes de valores */
+.valores-detalhe {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem 1.5rem;
+    padding: 0.5rem 0;
+}
+
+.info-item.highlight .info-value {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* Botão expandir (reaproveitado) */
+.btn-expand {
+    background: transparent;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    font-size: 0.75rem;
+    color: #555;
+    transition: background 0.2s;
+}
+
+.btn-expand:hover {
+    background: #f0f0f0;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: var(--light-color);
+    cursor: pointer;
+    position: relative;
+}
+
+input[type="checkbox"]:checked {
+    background: var(--primary-color);
+    border: none;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '✓';
+    font-weight: bold;
+    color: var(--light-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input[type="checkbox"]:disabled {
+    background: none;
+    border-color: var(--dark-color-40);
+}
+
+input[type="checkbox"]:disabled:checked {
+    background: var(--dark-color-40);
+    border-color: none;
+}
+
+input[type="checkbox"]:disabled:checked::after {
+    color: var(--light-color);
+}
+
+#select-all:disabled {
+    background: none;
+    border: none;
 }

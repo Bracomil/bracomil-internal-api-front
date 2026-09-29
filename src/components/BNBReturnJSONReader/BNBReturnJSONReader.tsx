@@ -143,7 +143,7 @@ export function ReturnResult({ data, onVoltar, onDarBaixa }: ReturnResultProps) 
                     Voltar
                 </button>
                 <button type="button" className="btn-primary" onClick={onDarBaixa}>
-                    Dar baixa no Bling
+                    Conciliar com Bling
                 </button>
             </div>
         </div>

@@ -1,5 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext'; // 👈 Importa o hook
+import LoadingPage from '../pages/Loading/Loading';
+
 
 export function ProtectedRoute() {
     const { isAuthenticated, isLoading } = useAuth();
@@ -7,7 +9,7 @@ export function ProtectedRoute() {
 
     // Enquanto o AuthContext está verificando a sessão, mostra um loading
     if (isLoading) {
-        return <div>Carregando...</div>; // Ou um componente de Spinner
+        return <LoadingPage />
     }
 
     if (!isAuthenticated) {

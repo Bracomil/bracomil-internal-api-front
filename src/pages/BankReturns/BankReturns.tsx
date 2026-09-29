@@ -3,14 +3,14 @@ import { FileUploader } from '../../components/FileUploader/FileUploader';
 import { ReturnResult } from '../../components/BNBReturnJSONReader/BNBReturnJSONReader';
 import { BlingMatcher } from '../../components/BlingMatcher/BlingMatcher';
 import { BlingResult } from '../../components/BlingResult/BlingResult';
-import { SendReturnFileMock as SendReturn, type ApiResponse } from '../../services/api';
-import {
-    buscarContasBling,
-    darBaixaNoBling,
-    type ContaConciliada,
-} from '../../services/bling';
+import { SendReturnFile as SendReturn, type ApiResponse } from '../../services/api';
+import { buscarContasBling, darBaixaNoBling, type ContaConciliada, type SettleResultItem } from '../../services/bling';
 import type { FileResult } from '../../components/FileUploader/types';
+import type { AppConfig } from "../../components/AppIcon"
+import { PERMISSIONS } from '../../types/permissions';
+import BankReturnIcon from "../../assets/bank-return-icon-2.png"
 import './BankReturns.css'
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 type PageState =
     | { status: 'idle' }
@@ -20,7 +20,18 @@ type PageState =
     | { status: 'blingError'; data: ApiResponse; message: string }        // 👈 NOVO
     | { status: 'matching'; data: ApiResponse; conciliadas: ContaConciliada[] }
     | { status: 'baixando' }
-    | { status: 'baixado'; sucesso: number; falhas: number };
+    | { status: 'baixado'; results: SettleResultItem[]; skipped: ContaConciliada[]; };
+
+export const BankReturns: AppConfig = {
+    name: "Retornos Bancários",
+    path: "/apps/bank/returns",
+    icon: BankReturnIcon,
+    permissionsNeeded: [
+        PERMISSIONS.BANK_RETURNS_READ,
+        PERMISSIONS.BANK_RETURNS_SETTLE
+    ],
+    permissionsMode: "any",
+}
 
 export function UploadPage() {
     const [state, setState] = useState<PageState>({ status: 'idle' });
@@ -54,8 +65,8 @@ export function UploadPage() {
     async function handleConfirmarBaixa(selecionadas: ContaConciliada[]) {
         setState({ status: 'baixando' });
         try {
-            const { sucesso, falhas } = await darBaixaNoBling(selecionadas);
-            setState({ status: 'baixado', sucesso, falhas });
+            const { results, skipped } = await darBaixaNoBling(selecionadas);
+            setState({ status: 'baixado', results, skipped });
         } catch (err) {
             const message = err instanceof Error ? err.message : 'Erro ao dar baixa';
             setState({ status: 'error', message });
@@ -66,13 +77,28 @@ export function UploadPage() {
         setState({ status: 'idle' });
     }
 
+    var pageHeader
+    switch (state.status) {
+        case "success":
+            pageHeader = "Informações do retorno bancário"
+            break
+        case "matching":
+            pageHeader = "Conciliação com Bling"
+            break
+        case "loading":
+            pageHeader = ""
+            break
+        default:
+            pageHeader = "Enviar retorno bancário"
+    }
+
     return (
         <div className="content">
-            <h1>Enviar retorno bancário</h1>
+            <h1>{pageHeader}</h1>
 
             {state.status === 'idle' && (
                 <FileUploader
-                    accept={['.ret', '.ret.sai']}
+                    accept={['.ret', '.sai']}
                     onFile={() => { }}
                     onProceed={handleProceed}
                 />
@@ -118,15 +144,15 @@ export function UploadPage() {
 
             {state.status === 'baixando' && (
                 <div className="upload-loading">
-                    <div className="spinner" />
+                    <LoadingSpinner />
                     <p>Dando baixa no Bling...</p>
                 </div>
             )}
 
             {state.status === 'baixado' && (
                 <BlingResult
-                    sucesso={state.sucesso}
-                    falhas={state.falhas}
+                    results={state.results}
+                    skipped={state.skipped}
                     onVoltar={handleVoltar}
                 />
             )}
