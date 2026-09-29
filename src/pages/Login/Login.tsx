@@ -1,10 +1,10 @@
-import { useState, type ChangeEvent } from 'react'
+import { useState } from 'react'
 // import './main.css'
 import './Login.css'
 import logo from "../../assets/logo-bracomil-horizontal.png"
 import { useAuth } from "../../context/AuthContext"
 import { useNavigate, useLocation } from 'react-router-dom';
-import { GoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
 // const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 // const STRONG_PWD_REGEX = /^/
