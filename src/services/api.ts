@@ -73,7 +73,7 @@ export async function SendReturnFile(file: FileResult): Promise<ApiResponse> {
     const formData = new FormData();
     formData.append('arquivo_retorno', new Blob([file.bytes]), file.name);
 
-    const response = await fetchWithInterceptors('http://localhost:3000/bnb/cnab400/return', {
+    const response = await fetchWithInterceptors('/bnb/cnab400/return', {
         method: 'POST',
         body: formData,
     });

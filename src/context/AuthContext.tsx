@@ -59,7 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setIsLoading(true);
         var data: LoginResponse;
         try {
-            const res = await fetchWithInterceptors('http://localhost:3000/oauth/google', {
+            const res = await fetchWithInterceptors('/oauth/google', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ credential: credentials.credential }),

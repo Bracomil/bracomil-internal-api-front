@@ -24,10 +24,9 @@ export async function fetchWithInterceptors(input: RequestInfo | URL, init: Requ
         for (const interceptor of requestInterceptors) {
             modifiedInit = await interceptor(modifiedInit);
         }
-        console.log(requestInterceptors)
-        console.log(input, modifiedInit)
 
-        let response = await fetch(input, modifiedInit);
+        const BASE_URL = import.meta.env.VITE_API_URL ?? '/api';
+        let response = await fetch(`${BASE_URL}${input}`, modifiedInit);
 
         for (const interceptor of responseInterceptors) {
             response = await interceptor(response);

@@ -134,7 +134,7 @@ export async function buscarContasBling(
     for (const data of datasUnicas) {
         const query = new URLSearchParams();
         query.set("filterDate", data); // DD-MM-YYYY
-        const res = await fetchWithInterceptors(`http://localhost:3000/bling/contas/receber?${query.toString()}`);
+        const res = await fetchWithInterceptors(`/bling/contas/receber?${query.toString()}`);
         if (!res.ok) {
             throw new Error(`Erro ao buscar contas para ${data}: ${res.status}`);
         }
@@ -196,7 +196,7 @@ export interface DarBaixaResult {
 
 export async function darBaixaNoBling(selecionadas: ContaConciliada[]): Promise<DarBaixaResult> {
     if (USE_MOCK) return mockDarBaixa(selecionadas);
-    const response = await fetchWithInterceptors('http://localhost:3000/bling/contas/receber/baixar', {
+    const response = await fetchWithInterceptors('/bling/contas/receber/baixar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
