@@ -7,7 +7,3 @@ services:
       - "127.0.0.1:8006:80"
     networks:
       - bracomil-net
-
-networks:
-  bracomil-net:
-    external: true
