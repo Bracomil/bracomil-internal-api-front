@@ -39,7 +39,7 @@ nav #logo {
     font-size: inherit;
     height: 100%;
     align-items: center;
-    overflow-x: scroll;
+    overflow-x: auto;
 
     display: flex;
     gap: inherit;
