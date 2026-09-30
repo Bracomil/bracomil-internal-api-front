@@ -3,7 +3,7 @@ import { useState } from 'react'
 import './Login.css'
 import logo from "../../assets/logo-bracomil-horizontal.png"
 import { useAuth } from "../../context/AuthContext"
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 
 // const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -65,6 +65,12 @@ function Login() {
             onError={() => console.log('Falha no login')}
           />
           <p className="mensagem">{message}</p>
+          <div className="login-legal">
+            Ao entrar, você concorda com nossos{' '}
+            <Link to="/termos">Termos de Serviço</Link>{' '}
+            e nossa{' '}
+            <Link to="/privacidade">Política de Privacidade</Link>.
+          </div>
         </div>
       </div>
     </div >

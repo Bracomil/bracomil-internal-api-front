@@ -8,7 +8,8 @@ import { UploadPage } from './pages/BankReturns/BankReturns'
 import { Layout } from './components/Layout';
 import { PERMISSIONS } from './types/permissions';
 import { PermissionRoute } from "./components/PermissionRoute"
-import LoadingPage from './pages/Loading/Loading';
+import PrivacyPolicy from './pages/Legal/PrivacyPolicy';
+import TermsOfService from './pages/Legal/TermsOfService';
 // { path: '/loading', element: <LoadingPage /> }
 
 export const router = createBrowserRouter([
@@ -45,7 +46,8 @@ export const router = createBrowserRouter([
         element: <PublicRoute />,              // 👈 envolve
         children: [
             { path: '/login', element: <Login /> },
-            { path: '/loading', element: <LoadingPage /> }
+            { path: '/privacidade', element: <PrivacyPolicy /> },
+            { path: '/termos', element: <TermsOfService /> },
         ],
     },
     {

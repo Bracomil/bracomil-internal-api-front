@@ -70,6 +70,19 @@
   color: var(--dark-color);
 }
 
+.login-legal {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: #777;
+  text-align: center;
+  max-width: 320px;
+}
+
+.login-legal a {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
